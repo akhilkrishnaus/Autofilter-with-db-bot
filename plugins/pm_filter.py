@@ -1,4 +1,3 @@
-# Kanged From @TroJanZheX
 import asyncio
 import re
 import ast
@@ -718,44 +717,28 @@ async def auto_filter(client, msg, spoll=False):
             **locals()
         )
     else:
-        cap = script.RESULT_TXT.format(search) #result for group
+        cap = f"<b>ϙᴜᴇʀʏ ʙʏ :- {message.from_user.mention}\nᴛɪᴛʟᴇ: - {search}\nᴛᴏᴛᴀʟ:- {str(total_results)}\nᴘʀᴏᴠɪᴅᴇ ʙʏ {message.chat.title}</b>"
     if imdb and imdb.get('poster'):
         try:
-            mes=await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024],
+            delauto = await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024],
                                       reply_markup=InlineKeyboardMarkup(btn))
-            if settings["auto_delete"]:
-                await asyncio.sleep(600)
-                await mes.delete()
-                dai=await message.reply(f"<b>Hey {message.from_user.mention} \n\nYour Request Has Been Deleted 👍 \n<i>(Due To Avoid Copyrights Issue😌)</i>\n\nIF YOU WANT THAT FILE, REQUEST AGAIN ❤️</b>")
-                await asyncio.sleep(100)
-                await dai.delete()
+            await asyncio.sleep(300)
+            await delauto.delete() #del msg auto 10min filter
         except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
             pic = imdb.get('poster')
             poster = pic.replace('.jpg', "._V1_UX360.jpg")
-            sir=await message.reply_photo(photo=poster, caption=cap[:1024], reply_markup=InlineKeyboardMarkup(btn))
-            if settings["auto_delete"]:
-                await asyncio.sleep(600)
-                await sir.delete()
-                dai=await message.reply(f"<b>Hey {message.from_user.mention} \n\nYour Request Has Been Deleted 👍 \n<i>(Due To Avoid Copyrights Issue😌)</i>\n\nIF YOU WANT THAT FILE, REQUEST AGAIN ❤️</b>")
-                await asyncio.sleep(100)
-                await dai.delete()
+            delau = await message.reply_photo(photo=poster, caption=cap[:1024], reply_markup=InlineKeyboardMarkup(btn))
+            await asyncio.sleep(300)
+            await delau.delete()#del msg auto 10min filter
         except Exception as e:
             logger.exception(e)
-            andi=await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(btn))
-            if settings["auto_delete"]:
-                await asyncio.sleep(600)
-                await andi.delete()
-                dai=await message.reply(f"<b>Hey {message.from_user.mention} \n\nYour Request Has Been Deleted 👍 \n<i>(Due To Avoid Copyrights Issue😌)</i>\n\nIF YOU WANT THAT FILE, REQUEST AGAIN ❤️</b>")
-                await asyncio.sleep(100)
-                await dai.delete()
+            audel = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(btn))
+            await asyncio.sleep(300)
+            await audel.delete()#del msg auto 10min filter
     else:
-        perfectok=await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(btn))
-        if settings["auto_delete"]:
-            await asyncio.sleep(600)
-            await perfectok.delete()
-            dai=await message.reply(f"<b>Hey {message.from_user.mention} \n\nYour Request Has Been Deleted 👍 \n<i>(Due To Avoid Copyrights Issue😌)</i>\n\nIF YOU WANT THAT FILE, REQUEST AGAIN ❤️</b>")
-            await asyncio.sleep(100)
-            await dai.delete()
+        autodel = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(btn))
+        await asyncio.sleep(300)
+        await autodel.delete()#del msg auto 10min filter
     if spoll:
         await msg.message.delete()
         
